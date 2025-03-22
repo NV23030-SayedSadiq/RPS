@@ -1,17 +1,8 @@
 function getComputerChoice() {
-  const randomNumber = Math.random(); 
-  if (randomNumber < 1 / 3) {
-    return "rock";
-  } else if (randomNumber < 2 / 3) {
-    return "paper";
-  } else {
-    return "scissors";
-  }
-}
-
-function getHumanChoice() {
-  const userInput = prompt("Enter your choice: Rock, Paper, or Scissors");
-  return userInput.toLowerCase(); 
+  const rand = Math.random();
+  if (rand < 1 / 3) return "rock";
+  else if (rand < 2 / 3) return "paper";
+  else return "scissors";
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -43,31 +34,33 @@ function playGame() {
   let humanScore = 0;
   let computerScore = 0;
 
+  console.log("Welcome to Rock Paper Scissors.");
+  console.log("Set your choice each round by typing: yourChoice = 'rock'");
+
   for (let i = 1; i <= 5; i++) {
     console.log(`--- Round ${i} ---`);
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    const result = playRound(humanChoice, computerChoice);
 
-    if (result === "human") {
-      humanScore++;
-    } else if (result === "computer") {
-      computerScore++;
+    if (typeof yourChoice === "undefined") {
+      console.log("Please set 'yourChoice' before starting the game.");
+      return;
     }
 
-    console.log(`Score => You: ${humanScore} | Computer: ${computerScore}`);
-    console.log("");
+    const human = yourChoice;
+    const computer = getComputerChoice();
+    const result = playRound(human, computer);
+
+    if (result === "human") humanScore++;
+    else if (result === "computer") computerScore++;
+
+    console.log(`Score => You: ${humanScore} | Computer: ${computerScore}\n`);
   }
 
-  console.log("--- Game Over ---");
+  console.log("--- Final Results ---");
   if (humanScore > computerScore) {
-    console.log(`You won the game! Final Score: You ${humanScore} - ${computerScore} Computer`);
+    console.log(`You win the game! Final: ${humanScore} - ${computerScore}`);
   } else if (computerScore > humanScore) {
-    console.log(`You lost the game. Final Score: You ${humanScore} - ${computerScore} Computer`);
+    console.log(`You lose the game. Final: ${humanScore} - ${computerScore}`);
   } else {
-    console.log(`It's a tie! Final Score: You ${humanScore} - ${computerScore} Computer`);
+    console.log(`It's a tie. Final: ${humanScore} - ${computerScore}`);
   }
 }
-
-console.log("Welcome to Rock Paper Scissors!");
-playGame();
